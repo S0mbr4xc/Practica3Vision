@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Practica3Vision</string>
+
+    <string-array name="descriptors_array">
+        <item>Momentos de Hu</item>
+        <item>Shape Signature (FFT)</item>
+    </string-array>
+
 </resources>

@@ -35,5 +35,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerDescriptors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_above="@id/buttonLayout"/>
     </LinearLayout>
 </RelativeLayout>

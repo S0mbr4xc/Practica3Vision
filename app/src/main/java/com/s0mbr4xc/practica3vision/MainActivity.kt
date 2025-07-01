@@ -1,38 +1,54 @@
 package com.s0mbr4xc.practica3vision
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.AssetManager
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.widget.TextView
-import com.s0mbr4xc.practica3vision.databinding.ActivityMainBinding
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Example of a call to a native method
-        binding.sampleText.text = stringFromJNI()
-    }
-
-    /**
-     * A native method that is implemented by the 'practica3vision' native library,
-     * which is packaged with this application.
-     */
-    external fun stringFromJNI(): String
+    external fun initAssetManager(assetManager: AssetManager)
+    external fun detectShapeFromBitmap(bitmap: Bitmap, descriptor: Int): String
 
     companion object {
-        // Used to load the 'practica3vision' library on application startup.
         init {
             System.loadLibrary("practica3vision")
         }
     }
 
-    external fun detectShapeFromBitmap(bitmap: Bitmap): String
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    
+        setContentView(R.layout.activity_main)
+        initAssetManager(assets) // 🔹 Inicializar AssetManager
+
+        val drawingView = findViewById<DrawingView>(R.id.drawingView)
+        val btnDetect = findViewById<Button>(R.id.btnDetect)
+        val btnClear = findViewById<Button>(R.id.btnClear)
+        val spinner = findViewById<Spinner>(R.id.spinnerDescriptors)
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.descriptors_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        btnDetect.setOnClickListener {
+            val descriptor = spinner.selectedItemPosition
+            val bitmap = drawingView.getDrawingBitmap()
+            val result = detectShapeFromBitmap(bitmap, descriptor)
+            Toast.makeText(this, "Figura detectada: $result", Toast.LENGTH_LONG).show()
+        }
+
+        btnClear.setOnClickListener {
+            drawingView.clearCanvas()
+        }
+    }
 }
