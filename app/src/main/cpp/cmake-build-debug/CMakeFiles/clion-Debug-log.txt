@@ -1,0 +1,18 @@
+"C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.3.4/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\s3_xc\AndroidStudioProjects\Practica3Vision\app\src\main\cpp -B C:\Users\s3_xc\AndroidStudioProjects\Practica3Vision\app\src\main\cpp\cmake-build-debug
+CMake Warning at C:/Users/s3_xc/Downloads/OpenCV-android-sdk/sdk/native/jni/OpenCVConfig.cmake:47 (message):
+  Found OpenCV Android Pack but it has no binaries compatible with your ABI
+  (can't find: /abi-)
+Call Stack (most recent call first):
+  CMakeLists.txt:17 (find_package)
+
+
+CMake Error at CMakeLists.txt:17 (find_package):
+  Found package configuration file:
+
+    C:/Users/s3_xc/Downloads/OpenCV-android-sdk/sdk/native/jni/OpenCVConfig.cmake
+
+  but it set OpenCV_FOUND to FALSE so package "OpenCV" is considered to be
+  NOT FOUND.
+
+
+-- Configuring incomplete, errors occurred!
